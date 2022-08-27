@@ -9,6 +9,12 @@ class Calender extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'start_date',
+        'end_date',
+    ];
+
     public function users()
     {
         return $this->belongsToMany(User::class);

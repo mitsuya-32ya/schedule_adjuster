@@ -16,6 +16,7 @@ class CalenderSeeder extends Seeder
     public function run()
     {
         Calender::create([
+            'name'        => 'Calender1',
             'start_date'  => '20220830',
             'end_date'    => '20220901',
         ]);
