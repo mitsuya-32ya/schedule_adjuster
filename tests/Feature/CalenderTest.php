@@ -24,4 +24,12 @@ class CalenderTest extends TestCase
         $this->assertCount(3, $calender->first()->users);
     }
 
+    public function test_a_user_can_get_calender_index_page()
+    {
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get('/calenders');
+        
+        $response->assertSuccessful();
+    }
+    
 }

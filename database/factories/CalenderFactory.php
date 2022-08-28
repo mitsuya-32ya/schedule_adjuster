@@ -17,6 +17,7 @@ class CalenderFactory extends Factory
     public function definition()
     {
         return [
+            'name' => fake()->name,
             'start_date' => fake()->dateTimeBetween($startDate = 'now', $endDate = '+2 week'),
             'end_date'   => fake()->dateTimeBetween($startDate = '+2week', $endDate = '+4 week'), 
         ];
