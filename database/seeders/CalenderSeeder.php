@@ -20,5 +20,11 @@ class CalenderSeeder extends Seeder
             'start_date'  => '20220830',
             'end_date'    => '20220901',
         ]);
+
+        Calender::create([
+            'name'        => 'Calender2',
+            'start_date'  => '20220829',
+            'end_date'    => '20220830',
+        ]);
     }
 }

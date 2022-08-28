@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalenderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,15 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::resource('/calenders', CalenderController::class)
+    ->names(['index'=>'calender.index',
+            'create' => 'calender.create',
+            'store' => 'calender.store',
+            'destroy' => 'calender.destroy',
+            'edit' => 'calender.edit',
+            'update' => 'calender.update'
+            ])
+    ->middleware(['auth']);
 
 require __DIR__.'/auth.php';

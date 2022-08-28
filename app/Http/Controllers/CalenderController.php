@@ -15,7 +15,9 @@ class CalenderController extends Controller
      */
     public function index()
     {
-        //
+        $calenders = Calender::with('users')->get();
+
+        return view('calenders.index', compact('calenders'));
     }
 
     /**
