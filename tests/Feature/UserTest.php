@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Calender;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -22,5 +23,19 @@ class UserTest extends TestCase
 
         $this->assertCount(1, $user);
         $this->assertCount(3, $user->first()->calenders);
+    }
+
+    public function test_schedules()
+    {
+        $user = User::factory()
+            ->has(
+                Schedule::factory()
+                    ->for(Calender::factory()->create())
+                    ->count(1)
+            )->create();
+
+        $schedules = Schedule::get(); 
+        
+        $this->assertEquals($user->schedules, $schedules);
     }
 }

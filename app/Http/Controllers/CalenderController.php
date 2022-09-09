@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCalenderRequest;
 use App\Http\Requests\UpdateCalenderRequest;
 use App\Models\Calender;
+use Illuminate\Support\Facades\Auth;
 
 class CalenderController extends Controller
 {
@@ -49,7 +50,12 @@ class CalenderController extends Controller
      */
     public function show(Calender $calender)
     {
-        //
+        if ($calender->isAuthUserBelongsToCalender()){
+            $dates = Calender::dates($calender);
+            return view('calenders.show', compact('calender', 'dates'));
+        } else {
+            return view('errors.403');
+        }
     }
 
     /**
