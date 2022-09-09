@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // testでSeederを使用するため、Seederファイルに変更を加えた場合、Testを確認する必要あり。
         $this->call([
             UserSeeder::class,
             CalenderSeeder::class,
