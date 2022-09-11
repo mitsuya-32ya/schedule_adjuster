@@ -18,7 +18,9 @@
                   @php
                   $authUserSchedule = $calender->getAuthUserScheduleAt($date)
                   @endphp
-                  @if($authUserSchedule->start_time == '00:00:00' && $authUserSchedule->end_time == '23:59:59')
+                  @if(!$authUserSchedule)
+                  <span>未設定</span>
+                  @elseif($authUserSchedule->start_time == '00:00:00' && $authUserSchedule->end_time == '23:59:59')
                   <span>○</span>
                   @elseif ($authUserSchedule->start_time && $authUserSchedule->end_time)
                   <span>{{ substr($authUserSchedule->start_time, 0, 5) }}</span>

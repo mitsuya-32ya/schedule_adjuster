@@ -111,4 +111,49 @@ class CalenderTest extends TestCase
         $responseIfCalenderDoesntHaveTheUser = $this->actingAs($user)->get('/calenders/2');
         $responseIfCalenderDoesntHaveTheUser->assertViewIs('errors.403');
     }
+
+    public function test_a_user_can_get_calender_create_page()
+    {
+        $this->seed();
+        $user = User::where('name', 'takahashi')->first();
+
+        $getCreatePage = $this->actingAs($user)->get('/calenders/create');
+        $getCreatePage->assertViewIs('calenders.create');
+    }
+
+    public function test_a_user_can_store_calender()
+    {
+        $this->seed();
+        $user = User::where('name', 'takahashi')->first();
+
+        $calenderName = "testCalenderName";
+
+        $response = $this->actingAs($user)->post('/calenders', [
+            'name' => $calenderName,
+            'start_date' => '2022-08-30',
+            'end_date' => '2022-09-30'
+        ]);
+        $createdCalender = Calender::where('name', $calenderName)->first();
+
+        $response->assertRedirect('/calenders/'.$createdCalender->id);
+        $this->assertDatabaseHas('calenders',['name' => $calenderName]);
+    }
+
+    public function test_a_user_cannot_store_calender_if_start_date_is_later_than_end_date()
+    {
+        $this->seed();
+        $user = User::where('name', 'takahashi')->first();
+
+        $calenderName = "testCalenderName";
+
+        $response = $this->actingAs($user)->post('/calenders', [
+            'name' => $calenderName,
+            'start_date' => '2022-10-30',
+            'end_date' => '2022-09-30'
+        ]);
+        // $createdCalender = Calender::where('name', $calenderName)->first();
+
+        $response->assertRedirect('/calenders/create');
+        $this->assertDatabaseMissing('calenders',['name' => $calenderName]);
+    }
 }

@@ -9,6 +9,7 @@
             @foreach ($calenders as $calender)
                 <a href="{{ route('calenders.show', $calender->id) }}" class="block mt-8 p-5 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <h3 class="font-semibold text-xl text-gray-800 mb-2">{{ $calender->name }}</h3>
+                    <div><span>{{$calender->start_date}}</span><span class="px-1">〜</span><span>{{$calender->end_date}}</span></div>
                     <div>
                         <span class="pr-1">member :</span>
                         @foreach ($calender->users as $user)
