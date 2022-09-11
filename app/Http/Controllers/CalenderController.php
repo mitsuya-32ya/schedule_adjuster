@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CalenderPostRequest;
 use App\Models\Calender;
 use App\Models\CalenderUser;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 
 class CalenderController extends Controller
@@ -100,8 +101,11 @@ class CalenderController extends Controller
      * @param  \App\Models\Calender  $calender
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Calender $calender)
+    public function destroy(Calender $calender, CalenderUser $calenderUser, Schedule $schedule)
     {
-        //
+        $schedule->where('calender_id', $calender->id)->delete();
+        $calenderUser->where('calender_id', $calender->id)->delete();
+        $calender->delete();
+        return redirect('calenders');
     }
 }

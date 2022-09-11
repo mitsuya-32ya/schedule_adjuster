@@ -4,7 +4,7 @@
       {{ $calender->name }}
     </h2>
   </x-slot>
-    
+
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -74,6 +74,15 @@
             </div>
           </div>
           @endforeach
+          <div class="text-center mt-4">
+            <form id="calender-delete-form" method="POST" action="{{ url('calenders/' . $calender->id) }}">
+              @csrf
+              @method('DELETE')
+              <button id="calender-delete-button" class="bg-red-500 hover:bg-red-700 text-white font-bold px-10 py-3 mr-1 rounded focus:outline-none focus:shadow-outline" type="button">
+                カレンダー削除
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

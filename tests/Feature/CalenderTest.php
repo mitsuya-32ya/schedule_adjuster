@@ -156,4 +156,14 @@ class CalenderTest extends TestCase
         $response->assertRedirect('/calenders/create');
         $this->assertDatabaseMissing('calenders',['name' => $calenderName]);
     }
+
+    public function test_a_user_delete_calender()
+    {
+        $this->seed();
+        $user = User::where('name', 'takahashi')->first();
+        $calender = Calender::where('name', 'Calender1')->first();
+        $this->assertDatabaseHas('calenders',['id' => $calender->id]);
+        $response = $this->actingAs($user)->delete('/calenders/'. $calender->id);
+        $this->assertDatabaseMissing('calenders',['id' => $calender->id]);
+    }
 }
