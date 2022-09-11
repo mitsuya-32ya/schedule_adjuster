@@ -11,5 +11,10 @@ class CalenderUser extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'calender_id',
+        'user_id',
+    ];
+
     protected $table = 'calender_user';
 }

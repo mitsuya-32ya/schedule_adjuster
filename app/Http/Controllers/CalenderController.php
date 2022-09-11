@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCalenderRequest;
-use App\Http\Requests\UpdateCalenderRequest;
+use App\Http\Requests\CalenderPostRequest;
 use App\Models\Calender;
+use App\Models\CalenderUser;
 use Illuminate\Support\Facades\Auth;
 
 class CalenderController extends Controller
@@ -28,7 +28,7 @@ class CalenderController extends Controller
      */
     public function create()
     {
-        //
+        return view('calenders.create');
     }
 
     /**
@@ -37,9 +37,22 @@ class CalenderController extends Controller
      * @param  \App\Http\Requests\StoreCalenderRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCalenderRequest $request)
+    public function store(CalenderPostRequest $request, CalenderUser $calenderUser)
     {
-        //
+        // CAUTION:start_date < end_dateであるvalidationがうまく作動しないため、一旦このバリデーションエラーとなった場合は、calender.createにリダイレクトする。後に修正する必要あり。
+        if($request->start_date >= $request->end_date){
+            return redirect()->route('calender.create');
+        }
+
+        $form = $request->all();
+
+        $calender = Calender::create($form);
+        $linkCalenderUser = [
+            'calender_id' => $calender->id,
+            'user_id' => $request->user()->id,
+        ];
+        $calenderUser->create($linkCalenderUser);
+        return redirect()->route('calenders.show', compact('calender'));
     }
 
     /**
@@ -76,7 +89,7 @@ class CalenderController extends Controller
      * @param  \App\Models\Calender  $calender
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCalenderRequest $request, Calender $calender)
+    public function update(CalenderPostRequest $request, Calender $calender)
     {
         //
     }
