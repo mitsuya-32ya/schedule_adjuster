@@ -74,7 +74,7 @@
             </div>
           </div>
           @endforeach
-          <div class="text-center mt-4">
+          <div class="mt-4">
             <form id="calender-delete-form" method="POST" action="{{ url('calenders/' . $calender->id) }}">
               @csrf
               @method('DELETE')
@@ -83,6 +83,10 @@
               </button>
             </form>
           </div>
+          <div class="mt-5">日程調整参加URL</div>
+          <div class="text-sm text-slate-500">他の人に以下のURLを共有すると、このカレンダーに参加してもらえます。</div>
+          <input class="w-full block my-2" id="copyTarget" type="text" value="{{$calenderJoinUrl}}" readonly>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-10 py-3 mr-1 rounded focus:outline-none focus:shadow-outline" onclick="copyToClipboard()">コピーする</button>
         </div>
       </div>
     </div>
@@ -102,6 +106,13 @@
           popup.classList.add('hidden');
         });
       });
+    }
+
+    function copyToClipboard() {
+      var copyTarget = document.getElementById("copyTarget");
+      copyTarget.select();
+      document.execCommand("Copy");
+      alert("コピーしました！ : " + copyTarget.value);
     }
   </script>
 </x-app-layout>

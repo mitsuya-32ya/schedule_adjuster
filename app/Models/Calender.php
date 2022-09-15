@@ -54,4 +54,21 @@ class Calender extends Model
     {
         return $this->users->where('id', Auth::user()->id)->first();
     }
+
+    public static function generateToken($calenderName)
+    {
+        return md5($calenderName);
+    }
+
+    public function generateJoinUrl()
+    {
+        // test実行時の"Uncaught exception PhpErrorException: Undefined index: HTTP_HOST"を避けるため
+        if ( php_sapi_name()==='cli' && !isset( $_SERVER['HTTP_HOST'] ) ) {
+            $_SERVER['HTTP_HOST'] = 'example.com';
+        
+        }
+        return (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . "/calender/{$this->id}/" . Calender::generateToken($this->name);
+    }
+
+    
 }
