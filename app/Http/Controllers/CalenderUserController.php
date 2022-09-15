@@ -4,83 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCalenderUserRequest;
 use App\Http\Requests\UpdateCalenderUserRequest;
+use App\Models\Calender;
 use App\Models\CalenderUser;
+use Illuminate\Support\Facades\Auth;
 
 class CalenderUserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function join($calenderId, $token, CalenderUser $calenderUser)
     {
-        //
-    }
+        $calender = Calender::find($calenderId);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $isAuthUserInCalender = CalenderUser::isAuthUserInCalender($calenderId);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCalenderUserRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCalenderUserRequest $request)
-    {
-        //
-    }
+        // すでにユーザがカレンダーに所属している。
+        if($isAuthUserInCalender){
+            return redirect()->route('calenders.show', compact('calender'))->with('flash_message', "登録済みのカレンダーです。");
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CalenderUser  $calenderUser
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CalenderUser $calenderUser)
-    {
-        //
-    }
+        // まだユーザがカレンダーに所属していない。
+        }else{
+            // URLに付属するTokenがこちらの用意したTokenに一致する。
+            if($token == Calender::generateToken($calender->name)){
+                
+                $calenderUser->registerAuthUserInCalender($calenderId);
+                
+                return redirect()->route('calenders.show', compact('calender'))->with('flash_message', "登録しました");
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CalenderUser  $calenderUser
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CalenderUser $calenderUser)
-    {
-        //
-    }
+            }else{
+                return redirect()->route('calender.index')->with('flash_message', "無効なTokenです。");
+            }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCalenderUserRequest  $request
-     * @param  \App\Models\CalenderUser  $calenderUser
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCalenderUserRequest $request, CalenderUser $calenderUser)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CalenderUser  $calenderUser
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(CalenderUser $calenderUser)
-    {
-        //
-    }
+        }
+            
+    }        
 }

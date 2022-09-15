@@ -54,4 +54,16 @@ class Calender extends Model
     {
         return $this->users->where('id', Auth::user()->id)->first();
     }
+
+    public static function generateToken($calenderName)
+    {
+        return md5($calenderName);
+    }
+
+    public function generateJoinUrl()
+    {
+        return (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . "/calender/{$this->id}/" . Calender::generateToken($this->name);
+    }
+
+    
 }

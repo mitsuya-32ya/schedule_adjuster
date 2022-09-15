@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CalenderController;
+use App\Http\Controllers\CalenderUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,5 +32,7 @@ Route::resource('/calenders', CalenderController::class)
             'update' => 'calender.update'
             ])
     ->middleware(['auth']);
+
+Route::get('/calender/{calenderId}/{calenderName}', [CalenderUserController::class, 'join'])->middleware(['auth']);
 
 require __DIR__.'/auth.php';
