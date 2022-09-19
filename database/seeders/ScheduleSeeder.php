@@ -32,14 +32,14 @@ class ScheduleSeeder extends Seeder
             'calender_id' => 1,
             'user_id'     => 1,
             'start_time'  => '00:00:00',
-            'end_time'    => '23:59:59',
+            'end_time'    => '23:59:00',
         ]);
         Schedule::create([
             'date'        => '20220830',
             'calender_id' => 1,
             'user_id'     => 2,
             'start_time'  => '00:00:00',
-            'end_time'    => '23:59:59',
+            'end_time'    => '23:59:00',
         ]);
         Schedule::create([
             'date'        => '20220831',
@@ -51,7 +51,7 @@ class ScheduleSeeder extends Seeder
             'calender_id' => 1,
             'user_id'     => 2,
             'start_time'  => '00:00:00',
-            'end_time'    => '23:59:59',
+            'end_time'    => '23:59:00',
         ]);
     }
 }

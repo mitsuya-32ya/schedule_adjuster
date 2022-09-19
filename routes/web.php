@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\CalenderUserController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,14 @@ Route::resource('/calenders', CalenderController::class)
             'destroy' => 'calender.destroy',
             'edit' => 'calender.edit',
             'update' => 'calender.update'
+            ])
+    ->middleware(['auth']);
+
+Route::resource('calenders.schedules', ScheduleController::class)
+    ->names([
+            'create' => 'schedule.create',
+            'store' => 'schedule.store',
+            'update' => 'schedule.update'
             ])
     ->middleware(['auth']);
 

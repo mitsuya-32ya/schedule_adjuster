@@ -13,14 +13,14 @@
           <table class="table-fixed w-full border-separate border">
             <tbody>
               <tr>
-                <th class="cursor-pointer text-blue-500 underline hover:text-blue-700 open-popup-button border border w-1/4 px-4 py-2">{{$date}}</th>
+                <th class="cursor-pointer text-blue-500 underline hover:text-blue-700 open-popup-button border border w-7/3 md:w-1/4 px-4 py-2">{{$date}}</th>
                 <td class="px-4 py-2">
                   @php
                   $authUserSchedule = $calender->getAuthUserScheduleAt($date)
                   @endphp
                   @if(!$authUserSchedule)
                   <span>未設定</span>
-                  @elseif($authUserSchedule->start_time == '00:00:00' && $authUserSchedule->end_time == '23:59:59')
+                  @elseif($authUserSchedule->start_time == '00:00:00' && $authUserSchedule->end_time == '23:59:00')
                   <span>○</span>
                   @elseif ($authUserSchedule->start_time && $authUserSchedule->end_time)
                   <span>{{ substr($authUserSchedule->start_time, 0, 5) }}</span>
@@ -47,7 +47,7 @@
                             {{ $schedule->user->name }}
                           </th>
                           <td class="border px-4 py-2">
-                            @if($schedule->start_time == '00:00:00' && $schedule->end_time == '23:59:59')
+                            @if($schedule->start_time == '00:00:00' && $schedule->end_time == '23:59:00')
                             <span>○</span>
                             @elseif ($schedule->start_time && $schedule->end_time)
                             <span>{{ substr($schedule->start_time, 0, 5) }}</span>
@@ -74,20 +74,24 @@
             </div>
           </div>
           @endforeach
+          <a href="{{ route('schedule.create', $calender) }}" class="bg-blue-500 hover:bg-blue-700 text-white text-center w-full font-bold px-10 py-3 mr-1 mt-5 rounded focus:outline-none focus:shadow-outline" type="button">
+        スケジュール登録・更新
+        </a>
+          
+          <div class="mt-5">日程調整参加URL</div>
+          <div class="text-sm text-slate-500">他の人に以下のURLを共有すると、このカレンダーに参加してもらえます。</div>
+          <input class="w-2/3 inline-block my-2" id="copyTarget" type="text" value="{{$calenderJoinUrl}}" readonly>
+          <button class="bg-blue-500 inline-block hover:bg-blue-700 text-white font-bold px-5 w-1/8 py-2 rounded focus:outline-none focus:shadow-outline" onclick="copyToClipboard()">コピー</button>
           <div class="mt-4">
             <form id="calender-delete-form" method="POST" action="{{ url('calenders/' . $calender->id) }}">
               @csrf
               @method('DELETE')
-              <button id="calender-delete-button" class="bg-red-500 hover:bg-red-700 text-white font-bold px-10 py-3 mr-1 rounded focus:outline-none focus:shadow-outline" type="button">
+              <button id="calender-delete-button" class="bg-red-500 hover:bg-red-700 text-white font-bold px-10 py-3 mr-1 mt-5 rounded focus:outline-none focus:shadow-outline" type="button">
                 カレンダー削除
               </button>
             </form>
           </div>
-          <div class="mt-5">日程調整参加URL</div>
-          <div class="text-sm text-slate-500">他の人に以下のURLを共有すると、このカレンダーに参加してもらえます。</div>
-          <input class="w-full block my-2" id="copyTarget" type="text" value="{{$calenderJoinUrl}}" readonly>
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-10 py-3 mr-1 rounded focus:outline-none focus:shadow-outline" onclick="copyToClipboard()">コピーする</button>
-        </div>
+        </div>        
       </div>
     </div>
   </div>
