@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Schedule extends Model
 {
@@ -17,6 +18,12 @@ class Schedule extends Model
     public function calender()
     {
         return $this->belongsTo(Calender::class);
+    }
+
+    public static function isOldSchedules($calenderId)
+    {
+        return self::where('calender_id', $calenderId)
+            ->where('user_id', Auth::user()->id)->count() > 0;
     }
     
 }
