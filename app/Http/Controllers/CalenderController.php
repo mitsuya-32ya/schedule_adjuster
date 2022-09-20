@@ -6,6 +6,7 @@ use App\Http\Requests\CalenderPostRequest;
 use App\Models\Calender;
 use App\Models\CalenderUser;
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class CalenderController extends Controller
@@ -17,7 +18,7 @@ class CalenderController extends Controller
      */
     public function index()
     {
-        $calenders = Calender::with('users')->get();
+        $calenders = User::getCalendersAuthUserBelongsTo();
 
         return view('calenders.index', compact('calenders'));
     }
