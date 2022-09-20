@@ -5,13 +5,15 @@ namespace Tests\Feature;
 use App\Models\Calender;
 use App\Models\Schedule;
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function test_calenders()
     {
@@ -37,5 +39,14 @@ class UserTest extends TestCase
         $schedules = Schedule::get(); 
         
         $this->assertEquals($user->schedules, $schedules);
+    }
+    public function test_getCalendersAuthUserBelongsTo()
+    {
+        $this->seed();
+
+        $user = User::where('name', 'takahashi')->first();
+        Auth::shouldReceive('user')->andReturn($user);
+
+        $this->assertEquals(User::getCalendersAuthUserBelongsTo()->count(), 2);
     }
 }
