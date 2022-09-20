@@ -29,7 +29,7 @@ class ScheduleController extends Controller
      */
     public function create(Calender $calender)
     {
-        // abort_if(!$calender->isAuthUserBelongsToCalender(), 403);
+        abort_if(!$calender->isAuthUserBelongsToCalender(), 403);
         $dates = Calender::dates($calender);
         $isOldSchedules = Schedule::isOldSchedules($calender->id);
         return view('schedules.create', compact('calender', 'dates', 'isOldSchedules'));

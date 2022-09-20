@@ -109,7 +109,7 @@ class CalenderTest extends TestCase
         $responseIfCalenderHasTheUser->assertViewIs('calenders.show');
 
         $responseIfCalenderDoesntHaveTheUser = $this->actingAs($user)->get('/calenders/2');
-        $responseIfCalenderDoesntHaveTheUser->assertViewIs('errors.403');
+        $responseIfCalenderDoesntHaveTheUser->assertStatus(403);
     }
 
     public function test_a_user_can_get_calender_create_page()

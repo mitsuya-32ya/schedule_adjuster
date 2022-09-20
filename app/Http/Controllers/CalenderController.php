@@ -64,13 +64,10 @@ class CalenderController extends Controller
      */
     public function show(Calender $calender)
     {
-        if ($calender->isAuthUserBelongsToCalender()){
-            $dates = Calender::dates($calender);
-            $calenderJoinUrl = $calender->generateJoinUrl();
-            return view('calenders.show', compact('calender', 'dates', 'calenderJoinUrl'));
-        } else {
-            return view('errors.403');
-        }
+        abort_if(!$calender->isAuthUserBelongsToCalender(), 403);
+        $dates = Calender::dates($calender);
+        $calenderJoinUrl = $calender->generateJoinUrl();
+        return view('calenders.show', compact('calender', 'dates', 'calenderJoinUrl'));
     }
 
     /**

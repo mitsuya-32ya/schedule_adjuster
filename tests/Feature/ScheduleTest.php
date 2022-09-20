@@ -64,7 +64,10 @@ class ScheduleTest extends TestCase
 
         $user = User::where('name', 'takahashi')->first();
 
-        $getCreatePage = $this->actingAs($user)->get("/calenders/create/{$calender1->id}/schedules/create");
-        $getCreatePage->assertViewIs('schedules.create');
+        $getCreatePage1 = $this->actingAs($user)->get("/calenders/{$calender1->id}/schedules/create");
+        $getCreatePage1->assertSuccessful();
+
+        $getCreatePage2 = $this->actingAs($user)->get("/calenders/{$calender2->id}/schedules/create");
+        $getCreatePage2->assertStatus(403);
     }
 }
