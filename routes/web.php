@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('calender.index');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('calender.index');
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('/calenders', CalenderController::class)
