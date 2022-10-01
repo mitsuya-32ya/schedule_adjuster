@@ -38,7 +38,6 @@ Route::resource('calenders.schedules', ScheduleController::class)
     ->names([
             'create' => 'schedule.create',
             'store' => 'schedule.store',
-            'update' => 'schedule.update'
             ])
     ->middleware(['auth']);
 
