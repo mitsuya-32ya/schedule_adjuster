@@ -1,0 +1,16 @@
+{
+  "Already registered?": "既にご登録ですか？",
+  "Confirm Password": "パスワードの確認",
+  "Dashboard": "ダッシュボード",
+  "Email": "メールアドレス",
+  "Forgot your password?": "パスワードをお忘れですか？",
+  "Log Out": "ログアウト",
+  "Log in": "ログイン",
+  "Name": "名前",
+  "Password": "パスワード",
+  "Remember me": "次回ログイン時まで覚えておく",
+  "Register": "登録",
+  "validation.min.string": "パスワードは8文字以上にしてください。",
+  "validation.required": "必須項目です。",
+  "Whoops! Something went wrong.": "入力情報に不備があります。"
+}
