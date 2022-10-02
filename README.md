@@ -17,8 +17,11 @@ http://scheduleadjuster.herokuapp.com/
 ## 使用技術
 
 ・開発環境, Docker
+
 ・言語/フレームワーク, PHP/Laravel
+
 ・データベース, MySQL
+
 ・本番環境, Heroku
 
 ## 機能一覧
