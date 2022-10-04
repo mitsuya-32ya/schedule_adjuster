@@ -37,7 +37,7 @@ class ScheduleController extends Controller
         $data = [];
         foreach($dates as $date){
             $data[] = [
-                'id'          => $request->id[$date] ?? null,
+                // 'id'          => $request->id[$date],
                 'date'        => $date,
                 'user_id'     => Auth::user()->id,
                 'calender_id' => $calender->id,
@@ -45,7 +45,7 @@ class ScheduleController extends Controller
                 'end_time'    => $request->end_time[$date]
             ];
         }
-        Schedule::upsert($data, ['id'], ['start_time', 'end_time']);
+        Schedule::insert($data);
 
         return redirect()->route('calenders.show', compact('calender'));
         
