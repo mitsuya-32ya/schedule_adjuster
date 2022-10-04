@@ -35,17 +35,25 @@ class ScheduleController extends Controller
     {
         $dates = Calender::dates($calender);
         $data = [];
+        $isSchedule = $request->id;
         foreach($dates as $date){
-            $data[] = [
-                // 'id'          => $request->id[$date],
+            
+            $tentativeData =
+            [
                 'date'        => $date,
                 'user_id'     => Auth::user()->id,
                 'calender_id' => $calender->id,
                 'start_time'  => $request->start_time[$date],
                 'end_time'    => $request->end_time[$date]
             ];
+
+            if($isSchedule){
+                $tentativeData += ['id' => $request->id[$date]];
+            }
+
+            $data[] = $tentativeData;
         }
-        Schedule::insert($data);
+        Schedule::upsert($data, ['id'], ['start_time', 'end_time']);
 
         return redirect()->route('calenders.show', compact('calender'));
         
