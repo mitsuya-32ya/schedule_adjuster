@@ -12,15 +12,13 @@ class CalenderUser extends Model
 
     public $timestamps = false;
 
-    protected $primaryKey = [
-        'calender_id',
-        'user_id',
-    ];
-
     protected $fillable = [
         'calender_id',
         'user_id',
     ];
+    protected $primaryKey = null;
+
+    public $incrementing = false;
 
     protected $table = 'calender_user';
 
