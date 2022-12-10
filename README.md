@@ -14,7 +14,7 @@ http://scheduleadjuster2.herokuapp.com/
 <img width="1420" alt="スクリーンショット 2022-12-10 11 52 31" src="https://user-images.githubusercontent.com/72178844/206826606-afab4884-c20c-4e35-877e-ead32ab663a7.png">
 
 
-スケジュール入力画面(複数日、複数時間、を同時に登録できるようにしています。)
+スケジュール入力画面(それぞれの日にちにおける、都合良い時間を同時に登録できるようにしています。)
 <img width="1248" alt="スクリーンショット 2022-12-10 11 52 59" src="https://user-images.githubusercontent.com/72178844/206826250-93353f6b-f579-47a3-bc0c-7eff5a50b3aa.png">
 
 スケジュール詳細画面(日付部分の右には、ログインユーザである自分の都合よい時間が表示されています。日付部分をクリックすると、他のユーザの空いている時間を確認できます。)
